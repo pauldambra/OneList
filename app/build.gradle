@@ -28,29 +28,11 @@ android {
         buildConfig = true
     }
 
-    signingConfigs {
-        release {
-            storeFile = file(System.getenv("ONELIST_KEYSTORE_PATH"))
-            storePassword = System.getenv("ONELIST_KEYSTORE_PASSWORD")
-            keyAlias = System.getenv("ONELIST_KEYSTORE_ALIAS")
-            keyPassword = System.getenv("ONELIST_KEYSTORE_ALIAS_PASSWORD")
-        }
-    }
-
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix '-DEBUG'
             resValue "string", "app_name", "1ListDev"
-        }
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile(
-                    'proguard-android-optimize.txt'),
-                    'proguard-rules.pro'
-            resValue "string", "app_name", "1List"
-            signingConfig signingConfigs.release
         }
     }
     flavorDimensions ["store"]
@@ -97,4 +79,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     ksp "androidx.room:room-compiler:$room_version"
+
+    implementation("com.posthog:posthog-android:3.+")
 }
